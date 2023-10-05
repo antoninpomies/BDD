@@ -11,5 +11,5 @@ select s.libserv from service s left join employe e on s.numserv = e.numserv whe
 --Question n°6
 select s.libserv as 'Service ayant Analyste et Directeur', e.numfonct as 'Fonction' from service s inner join employe e on s.numserv = e.numserv where e.numfonct = 'DIR' or e.numfonct = 'ANA' order by numfonct;
 --Question n°7
-select s.numserv, e.numfonct from service s inner join employe e on s.numserv = e.numserv where not exists(select e.numfonct, s.numserv from employe e, service s where e.numfonct='DIR' and s.numserv in('COMP', 'INFO', 'PROD', 'RH') );
+select s.libserv from service s left join employe e on s.numserv = e.numserv where s.numserv = 'DIR' and e.numfonct is null;
 --Question n°8
