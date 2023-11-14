@@ -19,3 +19,6 @@ select s.libserv, count(e.numemp) from service s left join employe e on e.numser
 --Question n°10
 select s.libserv, count(*) from service s inner joint employe e on s.numserv = e.numserv group by s.libserv having count(*) = (select max(count(*)) from employe e1 group by e1.numserv)
 --Question n°11
+
+--Question n°12
+select s.libserv, e.hom, e.prenom, f.salaire from employe einner join service son  e.numserv = s.numsev inner join fonction f on e.numfonct = f.numfonct and f.salaire = (select max (f1.salaire) from  employe e1 inner join fonction f1 on e1.numfonct = f1.numfonct where e1.numserv = s.numserv);
