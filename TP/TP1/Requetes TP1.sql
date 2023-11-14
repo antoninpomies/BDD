@@ -13,3 +13,8 @@ select s.libserv as 'Service ayant Analyste et Directeur', e.numfonct as 'Foncti
 --Question n°7
 select s.libserv from service s left join employe e on s.numserv = e.numserv where s.numserv = 'DIR' and e.numfonct is null;
 --Question n°8
+select f.libfonct, count(e.numemp) from fonction f  left join employe e on e.numfonct = f.numfonct group by f.libfonct;
+--Question n°9
+select s.libserv, count(e.numemp) from service s left join employe e.numfonct = f.numfonct group by e.numemp desc
+--Question n°10
+select s.libserv
