@@ -17,4 +17,5 @@ select f.libfonct, count(e.numemp) from fonction f  left join employe e on e.num
 --Question n°9
 select s.libserv, count(e.numemp) from service s left join employe e on e.numserv = f.numserv group by s.libserv order by e.numemp desc;
 --Question n°10
-select s.libserv
+select s.libserv, count(*) from service s inner joint employe e on s.numserv = e.numserv group by s.libserv having count(*) = (select max(count(*)) from employe e1 group by e1.numserv)
+--Question n°11
