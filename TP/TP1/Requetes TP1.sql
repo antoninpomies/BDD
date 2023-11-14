@@ -15,6 +15,6 @@ select s.libserv from service s left join employe e on s.numserv = e.numserv whe
 --Question n°8
 select f.libfonct, count(e.numemp) from fonction f  left join employe e on e.numfonct = f.numfonct group by f.libfonct;
 --Question n°9
-select s.libserv, count(e.numemp) from service s left join employe e.numfonct = f.numfonct group by e.numemp desc
+select s.libserv, count(e.numemp) from service s left join employe e on e.numserv = f.numserv group by s.libserv order by e.numemp desc;
 --Question n°10
 select s.libserv
