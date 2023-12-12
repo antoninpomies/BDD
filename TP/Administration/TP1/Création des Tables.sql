@@ -1,30 +1,27 @@
-CREATE TABLE professeur (
-    numprof NUMBER(3) CONSTRAINT pk_professeur PRIMARY KEY,
-    nom VARCHAR2(30) NOT NULL CHECK (nom = UPPER(nom)),
-    prenom VARCHAR2(30) NOT NULL CHECK (prenom = INITCAP(prenom)),
-    datenais DATE NOT NULL CHECK (datenais > TO_DATE('1900-01-01', 'YYYY-MM-DD')),
-    ttal NUMBER(5) NOT NULL CHECK (ttal >= 0)
+create table PROFESSEUR
+(Numprof number(3) constraint professeur_pk primary key,
+nom varchar2(30) not null,
+prenom varchar2(30) not null,
+datenais date constraint date_prof check (datenais > to_date('01/01/1900', 'MM/DD/YYYY')),
+Ttal NUMBER(5) default 0 not null constraint Ttal_positif check (Ttal >= 0)
 );
 
-CREATE TABLE MATIERE (
-    NUMMAT NUMBER(3) CONSTRAINT MATIERE_PK PRIMARY KEY,
-    LIBELLE VARCHAR2(30) NOT NULL,
-    COEF NUMBER(1) NOT NULL
+Create table MATIERE
+(nummat number(3) constraint matiere_pk primary key,
+libelle varchar2(30) not null,
+coef number(3));
+
+Create table ENSEIGNE
+(numProf number(3) constraint enseigne_ref_professeur references professeur(numProf),
+numMat number(2) constraint enseigne_ref_matiere references matiere(numMat),
+Promo varchar2(2) constraint promo_valeur check (promo in ('B3', 'M1', 'M2')),
+Nbh number(3) default 0 not null constraint Nbh_positif check (Nbh >= 0),
+constraint enseigne_pk primary key (numProf, numMat, Promo)
 );
 
-CREATE TABLE ENSEIGNE (
-    NUMPROF NUMBER(3),
-    NUMMAT NUMBER(3),
-    PROMO VARCHAR2(2),
-    NBH NUMBER(3) CHECK (NBH IS NOT NULL AND NBH > 0),
-    CONSTRAINT enseigne_pk PRIMARY KEY (NUMPROF, NUMMAT, PROMO)
+create table RECAP
+(numProf number(3) constraint recap_ref_professeur references professeur(numProf),
+Promo varchar2(2) constraint promo_valeur_recap check (promo in ('B3', 'M1', 'M2')),
+Totalh number(3) default 0 not null constraint Totalh_positif check (Totalh >= 0),
+constraint recap_pk primary key (numProf, Promo)
 );
-
-
-CREATE TABLE RECAP (
-    NUMPROF NUMBER(2),
-    PROMO VARCHAR2(2),
-    TOTALH NUMBER(4) CHECK (TOTALH IS NOT NULL AND TOTALH > 0),
-    CONSTRAINT recap_pk PRIMARY KEY (NUMPROF, PROMO)
-);
-
