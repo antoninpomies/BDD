@@ -24,12 +24,31 @@ create table RESULTAT (
     idPilote number(4),
     idCourse number(3),
     place number(3),
-    constraint pk_idPiloteidCourse primary key (idPilote, idCourse)
+    constraint pk_idPiloteidCourse primary key (idPilote, idCourse),
+    foreign key (idPilote) references PILOTE(idPilote),
+    foreign key (idCourse) references COURSE(idCourse)
 );
 
 --DDL Table CLASSEMENT
 create table CLASSEMENT (
     idPilote number(4) constraint pk_idPilote primary key,
     points number(3),
-    rang number(4)
+    rang number(4),
+    foreign key (idPilote) references PILOTE(idPilote)
 );
+
+-- Sequences
+
+
+-- Trigger pour nbCourse
+CREATE OR REPLACE TRIGGER majValnbCourse
+AFTER INSERT ON RESULTAT
+FOR EACH ROW
+BEGIN
+    UPDATE PILOTE
+    SET nbCourse = nbCourse + 1
+    WHERE IdPilote = :NEW.IdPilote;
+END;
+/
+
+--
